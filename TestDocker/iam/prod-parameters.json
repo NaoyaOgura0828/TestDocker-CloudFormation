@@ -1,0 +1,15 @@
+{
+    "Parameters": [
+        {
+            "ParameterKey": "SystemName",
+            "ParameterValue": "TestDocker"
+        },
+        {
+            "ParameterKey": "EnvType",
+            "ParameterValue": "prod"
+        }
+    ],
+    "Capabilities": [
+        "CAPABILITY_NAMED_IAM"
+    ]
+}

@@ -1,0 +1,217 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: IAM
+
+Parameters:
+  SystemName:
+    Type: String
+    AllowedPattern: '[a-zA-Z0-9-]*'
+  EnvType:
+    Description: Environment type.
+    Type: String
+    Default: dev
+    AllowedValues: [all, dev, stg, prod]
+    ConstraintDescription: must specify all, dev, stg, or prod.
+
+Mappings:
+  AzMap:
+    ap-northeast-1:
+      1st: ap-northeast-1a
+      2nd: ap-northeast-1c
+      3rd: ap-northeast-1d
+
+Resources:
+  # CodeBuild ロール作成
+  # RoleCodeBuild:
+  #   Type: AWS::IAM::Role
+  #   Properties:
+  #     RoleName: !Sub
+  #       - ${SystemName}-${EnvType}-role-code-build-${AWS::Region}
+  #       - {SystemName: !Ref SystemName, EnvType: !Ref EnvType}
+  #     Description: !Sub
+  #       - ${SystemName}-${EnvType}-role-code-build-${AWS::Region}
+  #       - {SystemName: !Ref SystemName, EnvType: !Ref EnvType}
+  #     Path: /
+  #     AssumeRolePolicyDocument:
+  #       Version: 2012-10-17
+  #       Statement:
+  #         - Effect: Allow
+  #           Principal:
+  #             Service: codebuild.amazonaws.com
+  #           Action: sts:AssumeRole
+  #     ManagedPolicyArns:
+  #       - arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryFullAccess
+  #       - arn:aws:iam::aws:policy/AmazonS3FullAccess
+  #       - arn:aws:iam::aws:policy/AWSCodeCommitReadOnly
+  #       - arn:aws:iam::aws:policy/CloudWatchFullAccess
+  #       - arn:aws:iam::aws:policy/CloudWatchLogsFullAccess
+  #       - arn:aws:iam::aws:policy/AmazonRDSFullAccess
+  #     Tags:
+  #       - Key: Name
+  #         Value: !Sub
+  #           - ${SystemName}-${EnvType}-role-code-build-${AWS::Region}
+  #           - {SystemName: !Ref SystemName, EnvType: !Ref EnvType}
+  #       - Key: SystemName
+  #         Value: !Ref SystemName
+  #       - Key: EnvType
+  #         Value: !Ref EnvType
+
+  # # CodePipeline ロール作成
+  # RoleCodePipeline:
+  #   Type: AWS::IAM::Role
+  #   Properties:
+  #     RoleName: !Sub
+  #       - ${SystemName}-${EnvType}-role-code-pipeline-${AWS::Region}
+  #       - {SystemName: !Ref SystemName, EnvType: !Ref EnvType}
+  #     Description: !Sub
+  #       - ${SystemName}-${EnvType}-role-code-pipeline-${AWS::Region}
+  #       - {SystemName: !Ref SystemName, EnvType: !Ref EnvType}
+  #     Path: /
+  #     AssumeRolePolicyDocument:
+  #       Version: 2012-10-17
+  #       Statement:
+  #         - Effect: Allow
+  #           Principal:
+  #             Service: codepipeline.amazonaws.com
+  #           Action: sts:AssumeRole
+  #     ManagedPolicyArns:
+  #       - arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryPowerUser
+  #       - arn:aws:iam::aws:policy/AmazonS3FullAccess
+  #       - arn:aws:iam::aws:policy/AWSCodeCommitFullAccess
+  #       - arn:aws:iam::aws:policy/AWSCodeBuildDeveloperAccess
+  #       - arn:aws:iam::aws:policy/AmazonECS_FullAccess
+  #       - arn:aws:iam::aws:policy/CloudWatchFullAccess
+  #     Tags:
+  #       - Key: Name
+  #         Value: !Sub
+  #           - ${SystemName}-${EnvType}-role-code-pipeline-${AWS::Region}
+  #           - {SystemName: !Ref SystemName, EnvType: !Ref EnvType}
+  #       - Key: SystemName
+  #         Value: !Ref SystemName
+  #       - Key: EnvType
+  #         Value: !Ref EnvType
+
+  # ECS ロール作成
+  RoleECS:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: !Sub
+        - ${SystemName}-${EnvType}-role-ecs-${AWS::Region}
+        - {SystemName: !Ref SystemName, EnvType: !Ref EnvType}
+      Description: !Sub
+        - ${SystemName}-${EnvType}-role-ecs-${AWS::Region}
+        - {SystemName: !Ref SystemName, EnvType: !Ref EnvType}
+      Path: /
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: ecs-tasks.amazonaws.com
+            Action: sts:AssumeRole
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy
+        - arn:aws:iam::aws:policy/CloudWatchLogsFullAccess
+        - arn:aws:iam::aws:policy/AmazonS3FullAccess
+        - arn:aws:iam::aws:policy/AmazonRDSFullAccess
+      Tags:
+        - Key: Name
+          Value: !Sub
+          - ${SystemName}-${EnvType}-role-ecs-${AWS::Region}
+          - {SystemName: !Ref SystemName, EnvType: !Ref EnvType}
+        - Key: SystemName
+          Value: !Ref SystemName
+        - Key: EnvType
+          Value: !Ref EnvType
+
+  # StepFunctions ロール作成
+  RoleStepFunctions:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: !Sub
+        - ${SystemName}-${EnvType}-role-step-functions-${AWS::Region}
+        - {SystemName: !Ref SystemName, EnvType: !Ref EnvType}
+      Description: !Sub
+        - ${SystemName}-${EnvType}-role-step-functions-${AWS::Region}
+        - {SystemName: !Ref SystemName, EnvType: !Ref EnvType}
+      Path: /
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: states.amazonaws.com
+            Action: sts:AssumeRole
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/AmazonECS_FullAccess
+        - arn:aws:iam::aws:policy/AWSXrayFullAccess
+      Tags:
+        - Key: Name
+          Value: !Sub
+          - ${SystemName}-${EnvType}-role-step-functions-${AWS::Region}
+          - {SystemName: !Ref SystemName, EnvType: !Ref EnvType}
+        - Key: SystemName
+          Value: !Ref SystemName
+        - Key: EnvType
+          Value: !Ref EnvType
+
+  # # EventBridge ロール作成
+  # RoleEventBridge:
+  #   Type: AWS::IAM::Role
+  #   Properties:
+  #     RoleName: !Sub
+  #       - ${SystemName}-${EnvType}-role-event-bridge-${AWS::Region}
+  #       - {SystemName: !Ref SystemName, EnvType: !Ref EnvType}
+  #     Description: !Sub
+  #       - ${SystemName}-${EnvType}-role-event-bridge-${AWS::Region}
+  #       - {SystemName: !Ref SystemName, EnvType: !Ref EnvType}
+  #     Path: /
+  #     AssumeRolePolicyDocument:
+  #       Version: 2012-10-17
+  #       Statement:
+  #         - Effect: Allow
+  #           Principal:
+  #             Service: states.amazonaws.com
+  #           Action: sts:AssumeRole
+  #     ManagedPolicyArns:
+  #       - arn:aws:iam::aws:policy/AWSStepFunctionsFullAccess
+  #     Tags:
+  #       - Key: Name
+  #         Value: !Sub
+  #         - ${SystemName}-${EnvType}-role-event-bridge-${AWS::Region}
+  #         - {SystemName: !Ref SystemName, EnvType: !Ref EnvType}
+  #       - Key: SystemName
+  #         Value: !Ref SystemName
+  #       - Key: EnvType
+  #         Value: !Ref EnvType
+
+Outputs:
+  # RoleCodeBuild:
+  #   Value: !Ref RoleCodeBuild
+  #   Export:
+  #     Name: !Sub
+  #       - ${SystemName}-${EnvType}-role-code-build-${AWS::Region}
+  #       - {SystemName: !Ref SystemName, EnvType: !Ref EnvType}
+  # RoleCodePipelineArn:
+  #   Value: !GetAtt RoleCodePipeline.Arn
+  #   Export:
+  #     Name: !Sub
+  #       - ${SystemName}-${EnvType}-role-code-pipeline-${AWS::Region}
+  #       - {SystemName: !Ref SystemName, EnvType: !Ref EnvType}
+  RoleECSArn:
+    Value: !GetAtt RoleECS.Arn
+    Export:
+      Name: !Sub
+        - ${SystemName}-${EnvType}-role-ecs-${AWS::Region}
+        - {SystemName: !Ref SystemName, EnvType: !Ref EnvType}
+  RoleStepFunctionsArn:
+    Value: !GetAtt RoleStepFunctions.Arn
+    Export:
+      Name: !Sub
+        - ${SystemName}-${EnvType}-role-step-functions-${AWS::Region}
+        - {SystemName: !Ref SystemName, EnvType: !Ref EnvType}
+  # RoleEventBridgeArn:
+  #   Value: !GetAtt RoleEventBridge.Arn
+  #   Export:
+  #     Name: !Sub
+  #       - ${SystemName}-${EnvType}-role-event-bridge-${AWS::Region}
+  #       - {SystemName: !Ref SystemName, EnvType: !Ref EnvType}
