@@ -88,11 +88,11 @@
             },
             {
                 "ParameterKey": "VPCCidrBlock",
-                "ParameterValue": "100.0.0.0/16"
+                "ParameterValue": "10.0.0.0/16"
             },
             {
                 "ParameterKey": "PublicSubnetCidrBlock1",
-                "ParameterValue": "100.0.1.0/24"
+                "ParameterValue": "10.0.1.0/24"
             }
         ]
     }
