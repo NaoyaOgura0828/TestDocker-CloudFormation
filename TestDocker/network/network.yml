@@ -309,12 +309,12 @@ Outputs:
   #     Name: !Sub
   #       - ${SystemName}-${EnvType}-public-subnet2
   #       - {SystemName: !Ref SystemName, EnvType: !Ref EnvType}
-  PrivateSubnet1:
-    Value: !Ref PrivateSubnet1
-    Export:
-      Name: !Sub
-        - ${SystemName}-${EnvType}-private-subnet1
-        - {SystemName: !Ref SystemName, EnvType: !Ref EnvType}
+  # PrivateSubnet1:
+  #   Value: !Ref PrivateSubnet1
+  #   Export:
+  #     Name: !Sub
+  #       - ${SystemName}-${EnvType}-private-subnet1
+  #       - {SystemName: !Ref SystemName, EnvType: !Ref EnvType}
   # PrivateSubnet2:
   #   Value: !Ref PrivateSubnet2
   #   Export:
