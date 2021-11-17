@@ -10,7 +10,7 @@
         },
         {
             "ParameterKey": "ECRRepositoryName",
-            "ParameterValue": "template-repository"
+            "ParameterValue": "testdocker-repository"
         },
         {
             "ParameterKey": "isScanOnPush",
