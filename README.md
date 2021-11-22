@@ -76,7 +76,7 @@ $ chmod +x ${ファイル名}
 # Usage
 
 1. `\TestDocker\network\{環境名}-parameters.json`内に展開先`VPCCidrBlock`, `PublicSubnetCidrBlock`を設定する。
-<br>
+
 ### 例:
 
 ```json
@@ -105,7 +105,7 @@ $ chmod +x ${ファイル名}
 <br>
 
 2. `create_stacks.sh` (構築用)の設定を行う。
-<br>
+
 ### 例:
 
 ```Bash
@@ -126,6 +126,7 @@ create_stack iam
 `delete_stacks.sh` (削除用)
 <br>
 #### 上記に`.sh`についても`create_stacks.sh`と同様に設定を行う。
+
 #### **`create_stacks.sh`同様、依存関係に注意して操作する事。**
 
 <br>
