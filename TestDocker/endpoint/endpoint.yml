@@ -21,7 +21,7 @@ Mappings:
       3nd: ap-northeast-1d
 
 Resources:
-  EndpointECR:
+  EndpointECS:
     Type: AWS::EC2::VPCEndpoint
     Properties:
       VpcEndpointType: Interface
@@ -46,4 +46,4 @@ Resources:
         - Fn::ImportValue: !Sub
           - ${SystemName}-${EnvType}-endpoint-sg
           - {SystemName: !Ref SystemName, EnvType: !Ref EnvType}
-      ServiceName: !Sub com.amazonaws.${AWS::Region}.ecr.dkr
+      ServiceName: !Sub com.amazonaws.${AWS::Region}.ecs
