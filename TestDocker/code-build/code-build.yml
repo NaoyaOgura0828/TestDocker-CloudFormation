@@ -20,9 +20,6 @@ Parameters:
     Description: Enables running the Docker daemon inside a Docker container.
     Type: String
     AllowedValues: [true, false]
-  ECRRepositoryName:
-    Description: RepositoryName.
-    Type: String
   TimeoutInMinutes:
     Description: Time to wait before timeout related builds that were not marked as complete..
     Type: Number
@@ -68,7 +65,7 @@ Resources:
             Value: latest
           - Name: IMAGE_REPO_NAME
             Type: PLAINTEXT
-            Value: !Ref ECRRepositoryName
+            Value: testdocker-repository
           - Name: CONTAINER_NAME
             Type: PLAINTEXT
             Value: !Sub ${SystemName}-${EnvType}-ecs-container
