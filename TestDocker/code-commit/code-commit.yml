@@ -1,0 +1,48 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: CodeCommit for Template
+
+Parameters:
+  SystemName:
+    Type: String
+    AllowedPattern: '[a-zA-Z0-9-]*'
+  EnvType:
+    Description: Environment type.
+    Type: String
+    AllowedValues: [all, dev, stg, prod]
+    ConstraintDescription: must specify all, dev, stg, or prod.
+
+Mappings:
+  AzMap:
+    ap-northeast-1:
+      1st: ap-northeast-1a
+      2nd: ap-northeast-1c
+      3rd: ap-northeast-1d
+
+Resources:
+  # CodeCommitRepository 作成
+  CodeCommitRepository:
+    Type: AWS::CodeCommit::Repository
+    Properties:
+      RepositoryName: TestDockerRepository
+      RepositoryDescription: TestDockerRepository
+      Tags:
+        - Key: Name
+          Value: TestDockerRepository
+        - Key: SystemName
+          Value: !Ref SystemName
+        - Key: EnvType
+          Value: !Ref EnvType
+
+Outputs:
+  CodeCommitRepositoryName:
+    Value: !GetAtt CodeCommitRepository.Name
+    Export:
+      Name: !Sub
+        - ${SystemName}-${EnvType}-code-commit-repo-name
+        - {SystemName: !Ref SystemName, EnvType: !Ref EnvType}
+  CodeCommitRepositoryURL:
+    Value: !GetAtt CodeCommitRepository.CloneUrlHttp
+    Export:
+      Name: !Sub
+        - ${SystemName}-${EnvType}-code-commit-repo-url
+        - {SystemName: !Ref SystemName, EnvType: !Ref EnvType}
