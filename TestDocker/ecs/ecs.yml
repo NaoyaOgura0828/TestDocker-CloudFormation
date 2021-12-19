@@ -88,7 +88,7 @@ Resources:
         Essential: !Ref isEssential
         Image:
           Fn::ImportValue: !Sub
-            - ${SystemName}-${EnvType}-ecr-uri
+            - ${SystemName}-${EnvType}-ecr-testdocker-uri
             - {SystemName: !Ref SystemName, EnvType: !Ref EnvType}
           # ${AWS::AccountId}.dkr.ecr.${AWS::Region}.amazonaws.com/${ImageName}:latest # 最新イメージをECRからPull
         LogConfiguration:
@@ -152,8 +152,12 @@ Outputs:
   ECSCluster:
     Value: !GetAtt ECSCluster.Arn
     Export:
-      Name: ECSClusterArn
-  ECSTaskDefinition:
+      Name: !Sub
+        - ${SystemName}-${EnvType}-ecs-cluster-testdocker-arn
+        - {SystemName: !Ref SystemName, EnvType: !Ref EnvType}
+  ECSTaskDefinitionArn:
     Value: !Ref ECSTaskDefinition
     Export:
-      Name: ECSTaskDefinitionArn
+      Name: !Sub
+        - ${SystemName}-${EnvType}-ecs-def-testdocker-arn
+        - {SystemName: !Ref SystemName, EnvType: !Ref EnvType}
