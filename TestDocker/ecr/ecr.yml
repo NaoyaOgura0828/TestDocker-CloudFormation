@@ -71,21 +71,21 @@ Resources:
           Value: !Ref EnvType
 
 Outputs:
-  ECRRepository:
+  ECRRepositoryName:
     Value: !Ref ECRRepository
     Export:
       Name: !Sub
-        - ${SystemName}-${EnvType}-ecr
+        - ${SystemName}-${EnvType}-ecr-testdocker-name
         - {SystemName: !Ref SystemName, EnvType: !Ref EnvType}
   ECRRepositoryArn:
     Value: !GetAtt ECRRepository.Arn
     Export:
       Name: !Sub
-        - ${SystemName}-${EnvType}-ecr-arn
+        - ${SystemName}-${EnvType}-ecr-testdocker-arn
         - {SystemName: !Ref SystemName, EnvType: !Ref EnvType}
   ECRRepositoryRepositoryUri:
     Value: !GetAtt ECRRepository.RepositoryUri
     Export:
       Name: !Sub
-        - ${SystemName}-${EnvType}-ecr-uri
+        - ${SystemName}-${EnvType}-ecr-testdocker-uri
         - {SystemName: !Ref SystemName, EnvType: !Ref EnvType}
