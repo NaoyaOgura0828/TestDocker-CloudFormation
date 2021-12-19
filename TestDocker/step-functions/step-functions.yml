@@ -101,9 +101,9 @@ Resources:
             SYSTEM_NAME: !Ref SystemName,
             ENV_TYPE: !Ref EnvType,
             ECS_TASK_DEF_ARN:
-              {'Fn::ImportValue': !Sub '${SystemName}-${EnvType}-ecr-def-arn'},
+              {'Fn::ImportValue': !Sub '${SystemName}-${EnvType}-ecr-testdocker-arn'},
             ECS_CLUSTER_ARN:
-              {'Fn::ImportValue': !Sub '${SystemName}-${EnvType}-ecs-cluster-arn'},
+              {'Fn::ImportValue': !Sub '${SystemName}-${EnvType}-ecs-cluster-testdocker-arn'},
             iS_ASSIGN_PUBLIC_IP: !Ref isAssignPublicIp,
             SECURITY_GROUPS:
               {'Fn::ImportValue': !Sub '${SystemName}-${EnvType}-ecs-sg'},
