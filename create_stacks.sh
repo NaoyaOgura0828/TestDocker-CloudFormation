@@ -32,6 +32,7 @@ create_stack () {
 # create_stack iam
 # create_stack network
 # create_stack sg
+# create_stack endpoint
 
 #####################################
 # Container

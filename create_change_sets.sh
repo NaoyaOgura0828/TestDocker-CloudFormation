@@ -35,6 +35,7 @@ create_change_set () {
 # create_change_set iam
 # create_change_set network
 # create_change_set sg
+# create_change_set endpoint
 
 #####################################
 # Container

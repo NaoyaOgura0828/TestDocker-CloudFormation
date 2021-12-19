@@ -43,6 +43,7 @@ delete_stack () {
 #####################################
 # 共通
 #####################################
+# delete_stack endpoint
 # delete_stack sg
 # delete_stack network
 # delete_stack iam
