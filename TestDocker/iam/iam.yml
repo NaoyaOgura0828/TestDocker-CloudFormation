@@ -20,75 +20,75 @@ Mappings:
       3rd: ap-northeast-1d
 
 Resources:
-  # CodeBuild ロール作成
-  # RoleCodeBuild:
-  #   Type: AWS::IAM::Role
-  #   Properties:
-  #     RoleName: !Sub
-  #       - ${SystemName}-${EnvType}-role-code-build-${AWS::Region}
-  #       - {SystemName: !Ref SystemName, EnvType: !Ref EnvType}
-  #     Description: !Sub
-  #       - ${SystemName}-${EnvType}-role-code-build-${AWS::Region}
-  #       - {SystemName: !Ref SystemName, EnvType: !Ref EnvType}
-  #     Path: /
-  #     AssumeRolePolicyDocument:
-  #       Version: 2012-10-17
-  #       Statement:
-  #         - Effect: Allow
-  #           Principal:
-  #             Service: codebuild.amazonaws.com
-  #           Action: sts:AssumeRole
-  #     ManagedPolicyArns:
-  #       - arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryFullAccess
-  #       - arn:aws:iam::aws:policy/AmazonS3FullAccess
-  #       - arn:aws:iam::aws:policy/AWSCodeCommitReadOnly
-  #       - arn:aws:iam::aws:policy/CloudWatchFullAccess
-  #       - arn:aws:iam::aws:policy/CloudWatchLogsFullAccess
-  #       - arn:aws:iam::aws:policy/AmazonRDSFullAccess
-  #     Tags:
-  #       - Key: Name
-  #         Value: !Sub
-  #           - ${SystemName}-${EnvType}-role-code-build-${AWS::Region}
-  #           - {SystemName: !Ref SystemName, EnvType: !Ref EnvType}
-  #       - Key: SystemName
-  #         Value: !Ref SystemName
-  #       - Key: EnvType
-  #         Value: !Ref EnvType
+  #CodeBuild ロール作成
+  RoleCodeBuild:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: !Sub
+        - ${SystemName}-${EnvType}-role-code-build-${AWS::Region}
+        - {SystemName: !Ref SystemName, EnvType: !Ref EnvType}
+      Description: !Sub
+        - ${SystemName}-${EnvType}-role-code-build-${AWS::Region}
+        - {SystemName: !Ref SystemName, EnvType: !Ref EnvType}
+      Path: /
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: codebuild.amazonaws.com
+            Action: sts:AssumeRole
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryFullAccess
+        - arn:aws:iam::aws:policy/AmazonS3FullAccess
+        - arn:aws:iam::aws:policy/AWSCodeCommitReadOnly
+        - arn:aws:iam::aws:policy/CloudWatchFullAccess
+        - arn:aws:iam::aws:policy/CloudWatchLogsFullAccess
+        - arn:aws:iam::aws:policy/AmazonRDSFullAccess
+      Tags:
+        - Key: Name
+          Value: !Sub
+            - ${SystemName}-${EnvType}-role-code-build-${AWS::Region}
+            - {SystemName: !Ref SystemName, EnvType: !Ref EnvType}
+        - Key: SystemName
+          Value: !Ref SystemName
+        - Key: EnvType
+          Value: !Ref EnvType
 
-  # # CodePipeline ロール作成
-  # RoleCodePipeline:
-  #   Type: AWS::IAM::Role
-  #   Properties:
-  #     RoleName: !Sub
-  #       - ${SystemName}-${EnvType}-role-code-pipeline-${AWS::Region}
-  #       - {SystemName: !Ref SystemName, EnvType: !Ref EnvType}
-  #     Description: !Sub
-  #       - ${SystemName}-${EnvType}-role-code-pipeline-${AWS::Region}
-  #       - {SystemName: !Ref SystemName, EnvType: !Ref EnvType}
-  #     Path: /
-  #     AssumeRolePolicyDocument:
-  #       Version: 2012-10-17
-  #       Statement:
-  #         - Effect: Allow
-  #           Principal:
-  #             Service: codepipeline.amazonaws.com
-  #           Action: sts:AssumeRole
-  #     ManagedPolicyArns:
-  #       - arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryPowerUser
-  #       - arn:aws:iam::aws:policy/AmazonS3FullAccess
-  #       - arn:aws:iam::aws:policy/AWSCodeCommitFullAccess
-  #       - arn:aws:iam::aws:policy/AWSCodeBuildDeveloperAccess
-  #       - arn:aws:iam::aws:policy/AmazonECS_FullAccess
-  #       - arn:aws:iam::aws:policy/CloudWatchFullAccess
-  #     Tags:
-  #       - Key: Name
-  #         Value: !Sub
-  #           - ${SystemName}-${EnvType}-role-code-pipeline-${AWS::Region}
-  #           - {SystemName: !Ref SystemName, EnvType: !Ref EnvType}
-  #       - Key: SystemName
-  #         Value: !Ref SystemName
-  #       - Key: EnvType
-  #         Value: !Ref EnvType
+  # CodePipeline ロール作成
+  RoleCodePipeline:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: !Sub
+        - ${SystemName}-${EnvType}-role-code-pipeline-${AWS::Region}
+        - {SystemName: !Ref SystemName, EnvType: !Ref EnvType}
+      Description: !Sub
+        - ${SystemName}-${EnvType}-role-code-pipeline-${AWS::Region}
+        - {SystemName: !Ref SystemName, EnvType: !Ref EnvType}
+      Path: /
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: codepipeline.amazonaws.com
+            Action: sts:AssumeRole
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryPowerUser
+        - arn:aws:iam::aws:policy/AmazonS3FullAccess
+        - arn:aws:iam::aws:policy/AWSCodeCommitFullAccess
+        - arn:aws:iam::aws:policy/AWSCodeBuildDeveloperAccess
+        - arn:aws:iam::aws:policy/AmazonECS_FullAccess
+        - arn:aws:iam::aws:policy/CloudWatchFullAccess
+      Tags:
+        - Key: Name
+          Value: !Sub
+            - ${SystemName}-${EnvType}-role-code-pipeline-${AWS::Region}
+            - {SystemName: !Ref SystemName, EnvType: !Ref EnvType}
+        - Key: SystemName
+          Value: !Ref SystemName
+        - Key: EnvType
+          Value: !Ref EnvType
 
   # ECS ロール作成
   RoleECS:
@@ -185,18 +185,18 @@ Resources:
   #         Value: !Ref EnvType
 
 Outputs:
-  # RoleCodeBuild:
-  #   Value: !Ref RoleCodeBuild
-  #   Export:
-  #     Name: !Sub
-  #       - ${SystemName}-${EnvType}-role-code-build-${AWS::Region}
-  #       - {SystemName: !Ref SystemName, EnvType: !Ref EnvType}
-  # RoleCodePipelineArn:
-  #   Value: !GetAtt RoleCodePipeline.Arn
-  #   Export:
-  #     Name: !Sub
-  #       - ${SystemName}-${EnvType}-role-code-pipeline-${AWS::Region}
-  #       - {SystemName: !Ref SystemName, EnvType: !Ref EnvType}
+  RoleCodeBuild:
+    Value: !Ref RoleCodeBuild
+    Export:
+      Name: !Sub
+        - ${SystemName}-${EnvType}-role-code-build-${AWS::Region}
+        - {SystemName: !Ref SystemName, EnvType: !Ref EnvType}
+  RoleCodePipelineArn:
+    Value: !GetAtt RoleCodePipeline.Arn
+    Export:
+      Name: !Sub
+        - ${SystemName}-${EnvType}-role-code-pipeline-${AWS::Region}
+        - {SystemName: !Ref SystemName, EnvType: !Ref EnvType}
   RoleECSArn:
     Value: !GetAtt RoleECS.Arn
     Export:
