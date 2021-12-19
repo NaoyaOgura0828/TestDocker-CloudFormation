@@ -24,8 +24,25 @@ delete_stack () {
     --profile ${SYSTEM_NAME}-${ENV_TYPE}
 }
 
+#####################################
+# CI/CD
+#####################################
+# delete_stack code-pipeline
+# delete_stack code-build
+# delete_stack code-commit
+# delete_stack sns
+
+#####################################
+# Container
+#####################################
+# delete_stack event-bridge
+# delete_stack step-functions
 # delete_stack ecs
 # delete_stack ecr
+
+#####################################
+# 共通
+#####################################
 # delete_stack sg
 # delete_stack network
 # delete_stack iam

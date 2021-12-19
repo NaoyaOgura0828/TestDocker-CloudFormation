@@ -26,10 +26,27 @@ create_stack () {
     --profile ${SYSTEM_NAME}-${ENV_TYPE}
 }
 
+#####################################
+# 共通
+#####################################
 # create_stack iam
 # create_stack network
 # create_stack sg
+
+#####################################
+# Container
+#####################################
 # create_stack ecr
 # create_stack ecs
+# create_stack step-functions
+# create_stack event-bridge
+
+#####################################
+# CI/CD
+#####################################
+# create_stack sns
+# create_stack code-commit
+# create_stack code-build
+# create_stack code-pipeline
 
 exit 0

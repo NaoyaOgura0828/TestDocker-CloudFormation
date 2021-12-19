@@ -29,10 +29,27 @@ create_change_set () {
     --profile ${SYSTEM_NAME}-${ENV_TYPE}
 }
 
+#####################################
+# 共通
+#####################################
 # create_change_set iam
 # create_change_set network
 # create_change_set sg
+
+#####################################
+# Container
+#####################################
 # create_change_set ecr
 # create_change_set ecs
+# create_change_set step-functions
+# create_change_set event-bridge
+
+#####################################
+# CI/CD
+#####################################
+# create_change_set sns
+# create_change_set code-commit
+# create_change_set code-build
+# create_change_set code-pipeline
 
 exit 0
