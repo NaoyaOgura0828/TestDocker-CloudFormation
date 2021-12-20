@@ -51,6 +51,7 @@ create_change_set () {
 # create_change_set sns
 # create_change_set code-commit
 # create_change_set code-build
+# create_change_set s3
 # create_change_set code-pipeline
 
 exit 0

@@ -48,6 +48,7 @@ create_stack () {
 # create_stack sns
 # create_stack code-commit
 # create_stack code-build
+# create_stack s3
 # create_stack code-pipeline
 
 exit 0

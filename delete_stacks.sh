@@ -28,6 +28,7 @@ delete_stack () {
 # CI/CD
 #####################################
 # delete_stack code-pipeline
+# delete_stack s3
 # delete_stack code-build
 # delete_stack code-commit
 # delete_stack sns
