@@ -21,6 +21,35 @@ Mappings:
       3nd: ap-northeast-1d
 
 Resources:
+  # EndpointECR 作成
+  EndpointECR:
+    Type: AWS::EC2::VPCEndpoint
+    Properties:
+      VpcEndpointType: Interface
+      PrivateDnsEnabled: true
+      PolicyDocument:
+        Statement:
+          - Effect: Allow
+            Principal: '*'
+            Action:
+              - '*'
+            Resource:
+              - '*'
+      VpcId:
+        Fn::ImportValue: !Sub
+          - ${SystemName}-${EnvType}-vpc
+          - {SystemName: !Ref SystemName, EnvType: !Ref EnvType}
+      SubnetIds:
+        - Fn::ImportValue: !Sub
+          - ${SystemName}-${EnvType}-private-subnet1
+          - {SystemName: !Ref SystemName, EnvType: !Ref EnvType}
+      SecurityGroupIds:
+        - Fn::ImportValue: !Sub
+          - ${SystemName}-${EnvType}-endpoint-sg
+          - {SystemName: !Ref SystemName, EnvType: !Ref EnvType}
+      ServiceName: !Sub com.amazonaws.${AWS::Region}.ecr.dkr
+
+  # EndpointECS 作成
   EndpointECS:
     Type: AWS::EC2::VPCEndpoint
     Properties:
