@@ -13,12 +13,20 @@
             "ParameterValue": "false"
         },
         {
-            "ParameterKey": "SubscriptionProtocol",
+            "ParameterKey": "EmailSubscriptionProtocol",
             "ParameterValue": "email"
         },
         {
-            "ParameterKey": "EndpointAddress",
-            "ParameterValue": "naoya_ogura@icloud.com"
+            "ParameterKey": "EndpointEmailAddress",
+            "ParameterValue": "dev@example.com"
+        },
+        {
+            "ParameterKey": "SMSSubscriptionProtocol",
+            "ParameterValue": "sms"
+        },
+        {
+            "ParameterKey": "EndpointPhoneNumber",
+            "ParameterValue": ""
         }
     ]
 }
