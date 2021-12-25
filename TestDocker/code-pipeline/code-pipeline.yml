@@ -74,7 +74,7 @@ Resources:
               Configuration:
                 NotificationArn:
                   Fn::ImportValue: !Sub
-                    - ${SystemName}-${EnvType}-sns-topic-TestDocker-arn
+                    - ${SystemName}-${EnvType}-sns-topic-step-functions-arn
                     - {SystemName: !Ref SystemName, EnvType: !Ref EnvType}
               RunOrder: 1
               Region: !Ref AWS::Region
