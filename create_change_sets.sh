@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 if [ $# -ne 1 ]; then
     echo "      $0 <ENV_TYPE(dev|stg|prod)>"
@@ -36,6 +36,7 @@ create_change_set () {
 # create_change_set network
 # create_change_set sg
 # create_change_set endpoint
+# create_change_set sns
 
 #####################################
 # Container
@@ -48,7 +49,6 @@ create_change_set () {
 #####################################
 # CI/CD
 #####################################
-# create_change_set sns
 # create_change_set code-commit
 # create_change_set code-build
 # create_change_set s3

@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 if [ $# -ne 1 ]; then
     echo "      $0 <ENV_TYPE(dev|stg|prod)>"
@@ -31,7 +31,6 @@ delete_stack () {
 # delete_stack s3
 # delete_stack code-build
 # delete_stack code-commit
-# delete_stack sns
 
 #####################################
 # Container
@@ -44,6 +43,7 @@ delete_stack () {
 #####################################
 # 共通
 #####################################
+# delete_stack sns
 # delete_stack endpoint
 # delete_stack sg
 # delete_stack network

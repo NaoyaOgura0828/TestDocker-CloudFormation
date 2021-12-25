@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 if [ $# -ne 1 ]; then
     echo "      $0 <ENV_TYPE(dev|stg|prod)>"
@@ -33,6 +33,7 @@ create_stack () {
 # create_stack network
 # create_stack sg
 # create_stack endpoint
+# create_stack sns
 
 #####################################
 # Container
@@ -45,7 +46,6 @@ create_stack () {
 #####################################
 # CI/CD
 #####################################
-# create_stack sns
 # create_stack code-commit
 # create_stack code-build
 # create_stack s3
