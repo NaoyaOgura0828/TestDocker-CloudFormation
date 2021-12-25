@@ -35,7 +35,7 @@ Resources:
               SSEAlgorithm: AES256
       Tags:
         - Key: Name
-          Value: !Ref BucketName
+          Value: !Ref CodePipelineBucketName
         - Key: SystemName
           Value: !Ref SystemName
         - Key: EnvType
