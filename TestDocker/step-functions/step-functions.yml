@@ -198,21 +198,170 @@ Resources:
   #       - Key: EnvType
   #         Value: !Ref EnvType
 
+  # # TestDockerECSRunTask
+  # # ECSRunTask (Error ReRun:5 Error SNS:Publish)
+  # StepFunctionsStateMachineTestDockerECSRunTask:
+  #   Type: AWS::StepFunctions::StateMachine
+  #   Properties:
+  #     StateMachineName: !Sub
+  #       - ${SystemName}-${EnvType}-state-machine-testdocker-ecsruntask
+  #       - {SystemName: !Ref SystemName, EnvType: !Ref EnvType}
+  #     DefinitionString: !Sub
+  #       - |
+  #         {
+  #           "Comment": "ECSRunTask",
+  #           "StartAt": "ECSRunTask",
+  #           "States": {
+  #             "ECSRunTask": {
+  #               "Type": "Task",
+  #               "Resource": "arn:aws:states:::ecs:runTask.sync",
+  #               "InputPath": "$",
+  #               "Parameters": {
+  #                 "LaunchType": "FARGATE",
+  #                 "Cluster": "${ECS_CLUSTER_ARN}",
+  #                 "TaskDefinition": "${ECS_TASK_DEF_ARN}",
+  #                 "NetworkConfiguration": {
+  #                   "AwsvpcConfiguration": {
+  #                     "AssignPublicIp": "${IS_ASSIGN_PUBLIC_IP}",
+  #                     "SecurityGroups": [
+  #                       "${SECURITY_GROUPS}"
+  #                     ],
+  #                     "Subnets": [
+  #                       "${SUBNETS}"
+  #                     ]
+  #                   }
+  #                 }
+  #               },
+  #               "Retry": [
+  #                 {
+  #                   "ErrorEquals": [
+  #                     "States.ALL"
+  #                   ],
+  #                   "IntervalSeconds": 1,
+  #                   "BackoffRate": 1,
+  #                   "MaxAttempts": 5
+  #                 }
+  #               ],
+  #               "Catch": [
+  #                 {
+  #                   "ErrorEquals": [
+  #                     "States.ALL"
+  #                   ],
+  #                   "Next": "SNS Publish"
+  #                 }
+  #               ],
+  #               "End": true
+  #             },
+  #             "SNS Publish": {
+  #               "Type": "Task",
+  #               "Resource": "arn:aws:states:::sns:publish",
+  #               "Parameters": {
+  #                 "Message.$": "$",
+  #                 "TopicArn": "${TOPIC_ARN}"
+  #               },
+  #               "End": true
+  #             }
+  #           }
+  #         }
+  #       - {
+  #           REGION: !Ref AWS::Region,
+  #           ACCOUNT_ID: !Ref AWS::AccountId,
+  #           SYSTEM_NAME: !Ref SystemName,
+  #           ENV_TYPE: !Ref EnvType,
+  #           ECS_TASK_DEF_ARN:
+  #             {'Fn::ImportValue': !Sub '${SystemName}-${EnvType}-ecs-def-testdocker-arn'}, # タスク定義設定
+  #           ECS_CLUSTER_ARN:
+  #             {'Fn::ImportValue': !Sub '${SystemName}-${EnvType}-ecs-cluster-testdocker-arn'}, # ECSクラスター設定
+  #           IS_ASSIGN_PUBLIC_IP: !Ref isAssignPublicIp,
+  #           SECURITY_GROUPS:
+  #             {'Fn::ImportValue': !Sub '${SystemName}-${EnvType}-ecs-sg'},
+  #           SUBNETS:
+  #             {'Fn::ImportValue': !Sub '${SystemName}-${EnvType}-private-subnet1'}, # サブネット設定
+  #           TOPIC_ARN:
+  #             {'Fn::ImportValue': !Sub '${SystemName}-${EnvType}-sns-topic-step-functions-arn'}, # SNSトピック設定
+  #         }
+  #     RoleArn:
+  #       Fn::ImportValue: !Sub
+  #         - ${SystemName}-${EnvType}-role-step-functions-${AWS::Region}
+  #         - {SystemName: !Ref SystemName, EnvType: !Ref EnvType}
+  #     StateMachineType: !Ref StateMachineType
+  #     LoggingConfiguration:
+  #       IncludeExecutionData: !Ref isIncludeExecutionData
+  #       Level: 'OFF'
+  #     Tags:
+  #       - Key: Name
+  #         Value: !Sub
+  #           - ${SystemName}-${EnvType}-state-machine-testdocker-ecsruntask
+  #           - {SystemName: !Ref SystemName, EnvType: !Ref EnvType}
+  #       - Key: SystemName
+  #         Value: !Ref SystemName
+  #       - Key: EnvType
+  #         Value: !Ref EnvType
+
   # TestDockerECSRunTask
-  # ECSRunTask (Error ReRun:5 Error SNS:Publish)
+  # ECSRunTask2Flow (Error ReRun:5 Error SNS:Publish)
   StepFunctionsStateMachineTestDockerECSRunTask:
     Type: AWS::StepFunctions::StateMachine
     Properties:
       StateMachineName: !Sub
-        - ${SystemName}-${EnvType}-state-machine-testdocker-ecsruntask
+        - ${SystemName}-${EnvType}-state-machine-template-ecsruntask
         - {SystemName: !Ref SystemName, EnvType: !Ref EnvType}
       DefinitionString: !Sub
         - |
           {
-            "Comment": "ECSRunTask",
-            "StartAt": "ECSRunTask",
+            "Comment": "ECSRunTask1",
+            "StartAt": "ECSRunTask1",
             "States": {
-              "ECSRunTask": {
+              "ECSRunTask1": {
+                "Type": "Task",
+                "Resource": "arn:aws:states:::ecs:runTask.sync",
+                "InputPath": "$",
+                "Parameters": {
+                  "LaunchType": "FARGATE",
+                  "Cluster": "${ECS_CLUSTER_ARN}",
+                  "TaskDefinition": "${ECS_TASK_DEF_ARN}",
+                  "NetworkConfiguration": {
+                    "AwsvpcConfiguration": {
+                      "AssignPublicIp": "${IS_ASSIGN_PUBLIC_IP}",
+                      "SecurityGroups": [
+                        "${SECURITY_GROUPS}"
+                      ],
+                      "Subnets": [
+                        "${SUBNETS}"
+                      ]
+                    }
+                  }
+                },
+                "Next": "ECSRunTask2",
+                "Retry": [
+                  {
+                    "ErrorEquals": [
+                      "States.ALL"
+                    ],
+                    "IntervalSeconds": 1,
+                    "BackoffRate": 1,
+                    "MaxAttempts": 5
+                  }
+                ],
+                "Catch": [
+                  {
+                    "ErrorEquals": [
+                      "States.ALL"
+                    ],
+                    "Next": "SNS Publish"
+                  }
+                ]
+              },
+              "SNS Publish": {
+                "Type": "Task",
+                "Resource": "arn:aws:states:::sns:publish",
+                "Parameters": {
+                  "Message.$": "$",
+                  "TopicArn": "${TOPIC_ARN}"
+                },
+                "End": true
+              },
+              "ECSRunTask2": {
                 "Type": "Task",
                 "Resource": "arn:aws:states:::ecs:runTask.sync",
                 "InputPath": "$",
@@ -242,6 +391,7 @@ Resources:
                     "MaxAttempts": 5
                   }
                 ],
+                "End": true,
                 "Catch": [
                   {
                     "ErrorEquals": [
@@ -249,17 +399,7 @@ Resources:
                     ],
                     "Next": "SNS Publish"
                   }
-                ],
-                "End": true
-              },
-              "SNS Publish": {
-                "Type": "Task",
-                "Resource": "arn:aws:states:::sns:publish",
-                "Parameters": {
-                  "Message.$": "$",
-                  "TopicArn": "${TOPIC_ARN}"
-                },
-                "End": true
+                ]
               }
             }
           }
@@ -291,7 +431,7 @@ Resources:
       Tags:
         - Key: Name
           Value: !Sub
-            - ${SystemName}-${EnvType}-state-machine-testdocker-ecsruntask
+            - ${SystemName}-${EnvType}-state-machine-template-ecsruntask
             - {SystemName: !Ref SystemName, EnvType: !Ref EnvType}
         - Key: SystemName
           Value: !Ref SystemName
