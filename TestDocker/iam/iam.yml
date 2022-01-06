@@ -20,7 +20,7 @@ Mappings:
       3rd: ap-northeast-1d
 
 Resources:
-  #CodeBuild ロール作成
+  # CodeBuild ロール作成
   RoleCodeBuild:
     Type: AWS::IAM::Role
     Properties:
