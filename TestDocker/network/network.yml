@@ -278,12 +278,12 @@ Resources:
   #     RouteTableId: !Ref PrivateRouteTable2
   #     DestinationCidrBlock: 0.0.0.0/0
   #     NatGatewayId: !Ref NATGateway2
-  # # Privateルートテーブル サブネット関連付け
-  # PrivateSubnetRouteTableAssociation1:
-  #   Type: AWS::EC2::SubnetRouteTableAssociation
-  #   Properties:
-  #     SubnetId: !Ref PrivateSubnet1
-  #     RouteTableId: !Ref PrivateRouteTable1
+  # Privateルートテーブル サブネット関連付け
+  PrivateSubnetRouteTableAssociation1:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId: !Ref PrivateSubnet1
+      RouteTableId: !Ref PrivateRouteTable1
   # PrivateSubnetRouteTableAssociation2:
   #   Type: AWS::EC2::SubnetRouteTableAssociation
   #   Properties:
