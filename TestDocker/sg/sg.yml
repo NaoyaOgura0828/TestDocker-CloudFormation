@@ -66,6 +66,12 @@ Resources:
       GroupName: !Sub
         - ${SystemName}-${EnvType}-endpoint-sg
         - {SystemName: !Ref SystemName, EnvType: !Ref EnvType}
+      SecurityGroupIngress:
+        - Description: 'From HTTPS'
+          CidrIp: 0.0.0.0/0
+          FromPort: 443
+          ToPort: 443
+          IpProtocol: tcp
       VpcId:
         Fn::ImportValue: !Sub
           - ${SystemName}-${EnvType}-vpc
